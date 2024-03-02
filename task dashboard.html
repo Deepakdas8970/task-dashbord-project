@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Management Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Task Management Dashboard</h1>
+    
+    <!-- Login Form (Optional) -->
+    <div class="login-form">
+        <h2>Login</h2>
+        
+            <input type="text" placeholder="Username" id="username">
+            <input type="password" placeholder="Password" id="password">
+            <button type="submit">Login</button>
+        
+    </div>
+    
+    <!-- Add Task Form -->
+    <div class="add-task-form" style="background: red">
+        <h2>Add New Task</h2>
+        
+           
+            <input type="text" id="taskInput" placeholder="Enter task description">
+            <button id="addTask">Add Task</button>
+          
+        
+    </div>
+    <br>
+    
+   <div>
+           <ul id="taskList" type="none">
+            
+                   
+           </ul>
+          
+   </div>
+    
+    <!-- Pending Tasks Section -->
+    <div class="pending-tasks">
+        <h2>Pending Tasks</h2>
+        <ul id="pendingTasks" type="none">
+            <!-- Pending tasks will be dynamically added here -->
+        </ul>
+    </div>
+    
+    <!-- Completed Tasks Section -->
+    <div class="completed-tasks">
+        <h2>Completed Tasks</h2>
+        <ul id="completedTasks" type='none'>
+            <!-- Completed tasks will be dynamically added here -->
+        </ul>
+    </div>
+</div>
+
+
+
+</body>
+<script>
+
+
+
+
+
+ document.querySelector('#addTask').addEventListener('click',function() {
+         
+         
+ 
+         let taskInput = document.getElementById('taskInput').value;
+         
+         
+         // alert of null input value
+         if (taskInput == '')
+         {
+                 alert('please write something')
+         }
+        
+        else{
+                let taskList = document.getElementById('taskList');
+                
+                
+                let newTask = document.createElement('li');
+                
+                
+
+                newTask.setAttribute('style', 'background:lightgrey;padding:5px;margin:2px;')
+                
+                
+                
+                newTask.innerText = taskInput;
+                taskList.appendChild(newTask)
+                
+                
+                // add close button and append it on list item
+                let closeButton=document.createElement('button');
+                closeButton.innerText='x';
+                closeButton.className='close';
+                
+                
+                
+                // add remove task item on clicked 
+                closeButton.addEventListener('click',()=> {
+                        newTask.remove();
+                        
+                })
+                
+                // append it on newTast
+                newTask.appendChild(closeButton)
+                
+                //add complete button
+                
+                
+               let completeButton = document.createElement('button');
+               completeButton.innerText = '✓';
+               completeButton.className = 'completeButton';
+               completeButton.addEventListener('click', () => {
+               
+                       let completeTasks = document.createElement('li');
+                       completeTasks.textContent = taskInput;
+                       
+               
+                       completeTasks.className = "task";
+               
+                       document.getElementById('completedTasks').appendChild(completeTasks);
+                       closeButton.addEventListener('click',()=> {
+                               completeTasks.remove();
+                       })
+                       completeTasks.appendChild(closeButton);
+                       newTask.style.textDecoration='line-through';
+                       newTask.appendChild(completeButton).remove();
+                       
+                       
+               
+               
+               
+               })
+               newTask.appendChild(completeButton);
+               
+               
+               
+               // add pending button 
+               
+               
+               
+               let pendingButton=document.createElement('button');
+               pendingButton.innerText='pending';
+               pendingButton.className='pendingButton';
+               pendingButton.addEventListener('click',()=> {
+                       let pendingTask=document.createElement('li');
+                       pendingTask.textContent=taskInput;
+                       pendingTask.className='task'
+                     
+                     
+                       document.getElementById('pendingTasks').appendChild(pendingTask);
+                       
+                       
+               })
+               newTask.appendChild(pendingButton);
+             
+                
+                //taskList.appendChild(newTask);
+                
+                
+               //  taskInput = document.getElementById('taskInput').value = '';
+        }
+         
+         
+         
+         
+         })
+       
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+        
+</script>
+</html>
+
